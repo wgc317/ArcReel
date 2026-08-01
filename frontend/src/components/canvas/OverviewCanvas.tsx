@@ -705,14 +705,6 @@ export function OverviewCanvas({
                           };
                         })
                         .filter((r): r is { label: string; value: string } => r !== null),
-                      ...(costEntries(projectTotals.actual.unassigned).length > 0
-                        ? [
-                            {
-                              label: t("actual_unassigned_history"),
-                              value: formatCost(projectTotals.actual.unassigned),
-                            },
-                          ]
-                        : []),
                     ]}
                     total={formatCost(totalBreakdown(projectTotals.actual))}
                     totalLabel={t("cost_total_short")}
@@ -819,12 +811,6 @@ export function OverviewCanvas({
                               audioValue={
                                 costEntries(epCost.totals.actual.audio).length > 0
                                   ? formatCost(epCost.totals.actual.audio)
-                                  : undefined
-                              }
-                              unassignedLabel={t("actual_unassigned_history_short")}
-                              unassignedValue={
-                                costEntries(epCost.totals.actual.unassigned).length > 0
-                                  ? formatCost(epCost.totals.actual.unassigned)
                                   : undefined
                               }
                               total={formatCost(totalBreakdown(epCost.totals.actual))}
@@ -947,8 +933,6 @@ function CostInline({
   videoValue,
   audioLabel,
   audioValue,
-  unassignedLabel,
-  unassignedValue,
   total,
   totalLabel,
   accent,
@@ -960,8 +944,6 @@ function CostInline({
   videoValue: string;
   audioLabel?: string;
   audioValue?: string;
-  unassignedLabel?: string;
-  unassignedValue?: string;
   total: string;
   totalLabel: string;
   accent: "warm" | "good";
@@ -983,14 +965,6 @@ function CostInline({
             {audioLabel}{" "}
           </span>
           <span style={{ color: "var(--color-text-2)" }}>{audioValue}</span>
-        </>
-      )}
-      {unassignedLabel != null && unassignedValue != null && (
-        <>
-          <span className="ml-2" style={{ color: "var(--color-text-4)" }}>
-            {unassignedLabel}{" "}
-          </span>
-          <span style={{ color: "var(--color-text-2)" }}>{unassignedValue}</span>
         </>
       )}
       <span className="ml-2" style={{ color: "var(--color-text-4)" }}>
